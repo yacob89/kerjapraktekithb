@@ -30,10 +30,13 @@ class App extends Component {
       lat: 37.832692, // <-- Contoh deklarasi state
       lng: -122.479942,
       zoom: 17,
-      counter: 0
+      counter: 0,
+      cardColor: "red"
     };
     this.updateDimensions = this.updateDimensions.bind(this); // <-- Contoh deklarasi functions/methods
     this.increaseCounter = this.increaseCounter.bind(this);
+    this.clearCounter = this.clearCounter.bind(this);
+    this.changeCardColor = this.changeCardColor.bind(this);
   }
 
   componentWillMount() {
@@ -57,11 +60,21 @@ class App extends Component {
     this.setState({ height: height });
   }
 
-  increaseCounter(e){
-    console.log("Event click: ", e);
+  increaseCounter(event) {
+    console.log("Event click: ", event.target);
     var increment = this.state.counter;
     increment = increment + 1;
     this.setState({ counter: increment });
+  }
+
+  clearCounter(event) {
+    console.log("Event click: ", event.target);
+    this.setState({ counter: 0 });
+  }
+
+  changeCardColor(event) {
+    console.log("Event click: ", event.target);
+    this.setState({ cardColor: "blue" });
   }
 
   render() {
@@ -82,13 +95,19 @@ class App extends Component {
       // <-- Tampilan UI semua ada di sini
       <div class="map-container" style={{ height: this.state.height }}>
         <div style={leftPanelStyle}>
-          <Card>
+          <Card color={this.state.cardColor}>
             <Card.Content header="About Amy" />
             <Card.Content description="Description" />
             <Card.Content>Counter: {this.state.counter}</Card.Content>
             <Card.Content extra>
-              <Button basic color="red" onClick={this.increaseCounter}>
+              <Button id="merah" basic color="red" onClick={this.increaseCounter}>
                 Update State
+              </Button>
+              <Button id="hijau" basic color="green" onClick={this.clearCounter}>
+                Clear
+              </Button>
+              <Button id="biru" basic color="blue" onClick={this.changeCardColor}>
+                Ganti Warna
               </Button>
             </Card.Content>
           </Card>
